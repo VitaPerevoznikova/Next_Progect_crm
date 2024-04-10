@@ -1,12 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Formik } from 'formik';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import Button from './button';
+import LogoUploader from './logo-uploader';
+import InputField from './input-field';
 import { createPromotion, getCompany } from '@/lib/api';
-import Button from '@/app/components/button';
-import InputField from '@/app/components/input-field';
-import LogoUploader from '@/app/components/logo-uploader';
 
 export type PromotionFieldValues = {
   title: string;
@@ -30,13 +30,23 @@ export default function PromotionForm({
   onSubmit,
 }: PromotionFormProps) {
   const queryClient = useQueryClient();
+  const [loading, setLoading] = useState(false);
+  const [company, setCompany] = useState<any>(null);
 
-  const { data: company } = useQuery({
-    queryKey: ['companies', companyId],
-    queryFn: () => getCompany(companyId),
-    staleTime: 10 * 1000,
-    enabled: Boolean(companyId),
-  });
+  useEffect(() => {
+    if (companyId) {
+      setLoading(true);
+      getCompany(companyId)
+        .then((data) => {
+          setCompany(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error fetching company:', error);
+          setLoading(false);
+        });
+    }
+  }, [companyId]);
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: createPromotion,
@@ -54,6 +64,7 @@ export default function PromotionForm({
 
   const handleSubmit = async (values: PromotionFieldValues) => {
     if (!company) {
+      console.error('Company data not loaded');
       return;
     }
 
@@ -68,6 +79,10 @@ export default function PromotionForm({
       onSubmit(values);
     }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
