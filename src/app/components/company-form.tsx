@@ -3,12 +3,16 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { CompanyStatus, createCompany, getCategories, getCountries } from '@/lib/api';
+import {
+  CompanyStatus,
+  createCompany,
+  getCategories,
+  getCountries,
+} from '@/lib/api';
 import LogoUploader from './logo-uploader';
 import InputField from './input-field';
 import StatusLabel from './status-label';
 import Button from './button';
-
 
 export type CompanyFieldValues = {
   title: string;
@@ -69,7 +73,6 @@ export default function CompanyForm({ onSubmit }: CompanyFormProps) {
       onSubmit(values);
     }
   };
-
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       <Form className="flex flex-col gap-10">
@@ -82,14 +85,14 @@ export default function CompanyForm({ onSubmit }: CompanyFormProps) {
               label="Status"
               placeholder="Status"
               name="status"
-              as="select"
+              select
             >
               {(Object.values(CompanyStatus) as CompanyStatus[]).map(
                 (status) => (
                   <option key={status} value={status}>
                     <StatusLabel status={status} styled={false} />
                   </option>
-                ),
+                )
               )}
             </InputField>
             <InputField
@@ -97,7 +100,7 @@ export default function CompanyForm({ onSubmit }: CompanyFormProps) {
               label="Country"
               placeholder="Country"
               name="countryId"
-              as="select"
+              select
             >
               {countries?.map((country) => (
                 <option key={country.id} value={country.id}>
@@ -113,7 +116,7 @@ export default function CompanyForm({ onSubmit }: CompanyFormProps) {
               label="Category"
               placeholder="Category"
               name="categoryId"
-              as="select"
+              select
             >
               {categories?.map((category) => (
                 <option key={category.id} value={category.id}>
