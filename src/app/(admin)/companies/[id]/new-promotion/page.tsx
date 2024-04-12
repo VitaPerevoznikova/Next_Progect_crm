@@ -1,6 +1,6 @@
 'use client';
-
 import React from 'react';
+
 import PromotionForm from '@/app/components/promotion-form';
 
 export interface PageProps {
