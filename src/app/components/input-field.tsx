@@ -1,11 +1,10 @@
 'use client';
 
 import React from 'react';
-import { Field, FieldAttributes } from 'formik';
+import { Field } from 'formik';
 
 export interface InputFieldProps
-  extends React.InputHTMLAttributes<HTMLInputElement>,
-    Pick<FieldAttributes<string>, 'as'> {
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
 }
 

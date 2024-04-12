@@ -4,10 +4,9 @@ import React from 'react';
 import { Form, Formik } from 'formik';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createPromotion, getCompany } from '@/lib/api';
-import InputField from './input-field';
-import LogoUploader from './logo-uploader';
-import Button from './button';
-
+import Button from '@/app/components/button';
+import InputField from '@/app/components/input-field';
+import LogoUploader from '@/app/components/logo-uploader';
 
 export type PromotionFieldValues = {
   title: string;
@@ -54,10 +53,6 @@ export default function PromotionForm({
   });
 
   const handleSubmit = async (values: PromotionFieldValues) => {
-    if (!company) {
-      return;
-    }
-
     await mutateAsync({
       ...values,
       discount: Number(values.discount) || 0,
