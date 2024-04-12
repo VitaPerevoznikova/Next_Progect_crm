@@ -9,10 +9,11 @@ import {
   getCategories,
   getCountries,
 } from '@/lib/api';
-import Button from '@/app/components/button';
-import InputField from '@/app/components/input-field';
-import LogoUploader from '@/app/components/logo-uploader';
-import StatusLabel from '@/app/components/status-label';
+
+import LogoUploader from './logo-uploader';
+import InputField from './input-field';
+import StatusLabel from './status-label';
+import Button from './button';
 
 export type CompanyFieldValues = {
   title: string;
