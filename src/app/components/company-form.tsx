@@ -9,7 +9,6 @@ import InputField from './input-field';
 import StatusLabel from './status-label';
 import Button from './button';
 
-
 export type CompanyFieldValues = {
   title: string;
   description: string;
